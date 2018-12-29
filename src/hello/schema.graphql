@@ -1,0 +1,15 @@
+type Query {
+  hello(name: String!): Hello
+}
+
+type Mutation {
+  saveName(name: String): Hello
+}
+
+type Subscription {
+  helloGranted(filter: String!): Hello
+}
+
+type Hello {
+  text: String
+}

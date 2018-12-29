@@ -1,0 +1,47 @@
+type Query {
+  findAllUsers: UserCollectionResult
+}
+
+type Mutation {
+  saveUser(user: UserInput): UserBasic
+}
+
+type Subscription {
+  userSaved(filter: String!): UserBasic
+}
+
+input UserInput {
+  name: String
+  age: Int
+  email: String
+  roles: [String]
+}
+
+type UserBasic {
+  name: String
+  age: Int
+  email: String
+  roles: [String]
+}
+
+type CollectionMetadata {
+  length: Int
+}
+
+type UserCollectionResult {
+  metadata: CollectionMetadata
+  result: [User]
+}
+
+type User {
+  id: ID
+  name: String
+  age: Int
+  email: String
+  roles: [Role]
+}
+
+type Role {
+  id: ID
+  name: String
+}
