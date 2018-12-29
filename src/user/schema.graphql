@@ -11,7 +11,7 @@ type Subscription {
 }
 
 input UserInput {
-  name: String
+  name: String!
   age: Int
   email: String
   roles: [String]

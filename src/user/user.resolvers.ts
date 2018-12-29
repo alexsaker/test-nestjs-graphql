@@ -29,9 +29,21 @@ export class UserResolvers {
   async saveName(@Args('user') user: UserInput): Promise<UserBasic> {
     try {
       const result = await this.userService.saveUser(user);
+      pubSub.publish('userSaved', user);
       return result[0];
     } catch (err) {
       throw new ApolloError(err);
     }
+  }
+  @Subscription('userSaved')
+  userSaved(@Args('filter') filter: string) {
+    return {
+      subscribe: withFilter(
+        () => pubSub.asyncIterator('userSaved'),
+        (payload, variables) => {
+          return payload.name.indexOf(variables.filter) > 0;
+        },
+      ),
+    };
   }
 }
